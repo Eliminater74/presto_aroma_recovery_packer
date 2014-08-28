@@ -1,0 +1,30 @@
+
+###Set your variables
+
+#Device name
+device=presto
+
+#Recovery name
+recoveryname=cwm
+
+#Recovery version
+vernumber=6.0.5.0
+
+#Insert date
+NOW=$(date +"%m%d%y")
+
+#File revision
+revision=r2
+
+#Author of the file
+author=marduk191
+
+#Import changelogs
+rm ./output/zip/META-INF/com/google/android/aroma/changelogs.txt
+cp ./changelogs.txt ./output/zip/META-INF/com/google/android/aroma/changelogs.txt
+
+######################################################################################################################################
+###################################################END OF CONFIGURATION###############################################################
+######################################################################################################################################
+cd output/zip
+zip -r -q --exclude=*zip* $device.$recoveryname.recovery.$vernumber.$revision.$NOW-$author.zip * && echo "Success" || echo "Failure"

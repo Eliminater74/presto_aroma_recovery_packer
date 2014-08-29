@@ -1,4 +1,3 @@
-
 ###Set your variables
 
 #Device name
@@ -19,12 +18,19 @@ revision=r2
 #Author of the file
 author=marduk191
 
-#Import changelogs
-rm ./output/zip/META-INF/com/google/android/aroma/changelogs.txt
-cp ./changelogs.txt ./output/zip/META-INF/com/google/android/aroma/changelogs.txt
+#Recovery Image location
+recloc=cm11/target/product/presto/recovery.img
 
 ######################################################################################################################################
 ###################################################END OF CONFIGURATION###############################################################
 ######################################################################################################################################
+
+#import recovery
+cp $recloc ./output/zip
+
+#Import changelogs
+rm ./output/zip/META-INF/com/google/android/aroma/changelogs.txt
+cp ./changelogs.txt ./output/zip/META-INF/com/google/android/aroma/changelogs.txt
+
 cd output/zip
 zip -r -q --exclude=*zip* $device.$recoveryname.recovery.$vernumber.$revision.$NOW-$author.zip * && echo "Success" || echo "Failure"

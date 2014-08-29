@@ -34,6 +34,9 @@ revision=r2
 
 #Author of the file
 author=marduk191
+
+#Recovery Image location
+recloc=cm11/target/product/presto/recovery.img
 ````
 
 Edit your changelog

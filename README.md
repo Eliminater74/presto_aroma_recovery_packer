@@ -5,7 +5,7 @@ YOUR RECOVERY PARTITIONS WILL BE DIFFERENT.
 If you would like to use the ineractive yad installer:
 
 ````
-./nocong
+./noconf
 ````
 
 OR manually configure: 

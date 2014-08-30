@@ -1,3 +1,4 @@
+#! /bin/bash
 ###Set your variables
 
 #Device name
@@ -19,7 +20,7 @@ revision=r2
 author=marduk191
 
 #Recovery Image location
-recloc=cm11/target/product/presto/recovery.img
+recloc=/media/marduk191/b59ee394-ecc6-45b0-b5e6-244bb44528ae/NEW/cm11/target/product/presto/recovery.img
 
 ######################################################################################################################################
 ###################################################END OF CONFIGURATION###############################################################

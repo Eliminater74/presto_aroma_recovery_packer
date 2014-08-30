@@ -2,14 +2,15 @@
 THIS IS FOR THE PANTECH PRESTO (BURST/P9070).
 YOUR RECOVERY PARTITIONS WILL BE DIFFERENT.
 
-Copy your recovery to
+If you would like to use the ineractive yad installer:
 
 ````
-output/zip
+./nocong
 ````
-and make sure it is named 
+
+OR manually configure: 
 ````
-recovery.img
+gedit build
 ````
 
 Open the build script and adjust your variables.

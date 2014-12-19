@@ -25,14 +25,13 @@ fontresload( "1", "ttf/Roboto-Regular.ttf", "18" );
 #Content
 
 #set vars
-ini_set("rom_name",             "CWM recovery");
+ini_set("rom_name",             "TWRP recovery");
 ini_set("rom_author",           "marduk191");
 ini_set("rom_device",           "Pantech Burst");
-ini_set("rom_date",             "8-27-2014");
-ini_set("rom_version",          "4.4-A2");
-ini_set("rom_hp",          "http://pantecdevteam.github.io");
+ini_set("rom_date",             "11-28-2014");
+ini_set("rom_version",          "R3");
 viewbox(
-  "Pantech Burst CWM installer",
+  "Pantech Burst recovery installer",
     "\n\n\n\n\n"+
     "           	You're about to flash\n"+
     "      		"+ini_get("rom_name")+" for the \n"+
@@ -40,15 +39,14 @@ viewbox(
     "\n\n\n"+
     "  AUTHOR : "+ini_get("rom_author")+"</#>\n"+
     "  VERSION : "+ini_get("rom_version")+"</#>\n"+
-    "  UPDATED : "+ini_get("rom_date")+"</#>\n\n"+
-    "  HOMEPAGE : "+ini_get("rom_hp")+"</#>\n\n\n"+
+    "  UPDATED : "+ini_get("rom_date")+"</#>\n"+
     "Press Next to continue the installation...",
   "icons/install"
 );
 
 textbox(
   "Changelog",
-  "Changelog for the presto CWM",
+  "What's New?",
   "icons/update",
   readfile_aroma("changelogs.txt")
 );
@@ -73,7 +71,7 @@ ini_set("text_next", "Finish");
 viewbox(
   "Installation Completed",
   "<#080>Congratulations...</#>\n\n"+
-  "CWM Recovery has been installed\n\n"+
+  "Recovery has been installed\n\n"+
   "Press Finish, and Reboot your phone.\n\n"+
   "\n\n\n\n"+
   ".....\n\n\nThank you",

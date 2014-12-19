@@ -1,2 +1,10 @@
-08-27-2014
+testing
+11-28-2014
+Fixed a shit error, new package.
+
+11-27-2014
+Updated to TWRP 2.8.1.0
+Added Material design
+
+----------
 Initial Test build

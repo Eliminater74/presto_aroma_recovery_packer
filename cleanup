@@ -1,5 +1,6 @@
 rm ./output/zip/*.zip
 rm ./output/zip/recovery.img
+rm -rf ./output/zip/theme/
 rm ./output/zip/META-INF/com/google/android/aroma/changelogs.txt
 
 

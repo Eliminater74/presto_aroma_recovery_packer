@@ -14,9 +14,9 @@ frmdata=$(
 	 --field="File Revision:" \
 	 --field="Author Name:" \
 	 --field="recovery image location:FL" \
+	 --field="include TWRP theme:CHK" \
 	 --button="Build" \
-	 "Device name" "Recovery name" "Version" "Revision" "Author" "Recovery location" "Pick a location")
-
+	 "Device name" "Recovery name" "Version" "Revision" "Author" "Recovery location" "Pick a location" TRUE)
 device=$(echo $frmdata | awk 'BEGIN {FS="|" } { print $1 }')
 recoveryname=$(echo $frmdata | awk 'BEGIN {FS="|" } { print $2 }')
 vernumber=$(echo $frmdata | awk 'BEGIN {FS="|" } { print $3 }')
@@ -24,20 +24,29 @@ revision=$(echo $frmdata | awk 'BEGIN {FS="|" } { print $4 }')
 NOW=$(date +"%m%d%y")
 author=$(echo $frmdata | awk 'BEGIN {FS="|" } { print $5 }')
 recloc=$(echo $frmdata | awk 'BEGIN {FS="|" } { print $6 }')
+themeit=$(echo $frmdata | awk 'BEGIN {FS="|" } { print $7 }')
+  
+  if [[ "$themeit" == "TRUE" ]]
+     then cp -r ./output/theme ./output/zip/theme
+     else echo "Theme is not available"
+  fi 
 
 pico ./output/zip/META-INF/com/google/android/aroma-config
 pico ./changelogs.txt
-if test -e $recloc
-then cp $recloc ./output/zip/
-else echo "Error: set your recovery location"
-fi
+
+  if test -e $recloc
+     then cp $recloc ./output/zip/
+     else echo "Error: set your recovery location"
+  fi
+
 rm ./output/zip/META-INF/com/google/android/aroma/changelogs.txt
 cp ./changelogs.txt ./output/zip/META-INF/com/google/android/aroma/changelogs.txt
 cd output/zip
-if test -e ./recovery.img
-then zip -r -q --exclude=*zip* "$device.$recoveryname.recovery.$vernumber.$revision.$NOW-$author.zip" * 
-else echo "Error: recovery.img not found"
-fi
+
+  if test -e ./recovery.img
+     then zip -r -q "$device.$recoveryname.recovery.$vernumber.$revision.$NOW-$author.zip" * 
+     else echo "Error: recovery.img not found"
+  fi
 
 ls -lh "$device.$recoveryname.recovery.$vernumber.$revision.$NOW-$author.zip"
 

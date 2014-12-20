@@ -10,7 +10,7 @@ If you would like to use the yad interface:
 Fill out the form and click "build".
 Pico will then open in the console so that you may edit your aroma-config and changelogs.txt. A quick press of the key comination "Ctrl+x" will exit and allow you to save changes
 
-
+<img src='https://raw.githubusercontent.com/marduk191/wikiart/master/parp.png' width='300px'>
 
 Get your output file from:
 

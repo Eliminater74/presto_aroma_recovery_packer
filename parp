@@ -13,9 +13,9 @@ frmdata=$(
 	 --field="Version Number:" \
 	 --field="File Revision:" \
 	 --field="Author Name:" \
-	 --field="recovery.img location:" \
+	 --field="recovery image location:FL" \
 	 --button="Build" \
-	 "Device name" "Recovery name" "Version" "Revision" "Author" "Recovery location")
+	 "Device name" "Recovery name" "Version" "Revision" "Author" "Recovery location" "Pick a location")
 
 device=$(echo $frmdata | awk 'BEGIN {FS="|" } { print $1 }')
 recoveryname=$(echo $frmdata | awk 'BEGIN {FS="|" } { print $2 }')
@@ -27,17 +27,17 @@ recloc=$(echo $frmdata | awk 'BEGIN {FS="|" } { print $6 }')
 
 pico ./output/zip/META-INF/com/google/android/aroma-config
 pico ./changelogs.txt
-if test -e $recloc/recovery.img
-then cp $recloc/recovery.img ./output/zip/
-else echo "set your recovery location"
+if test -e $recloc
+then cp $recloc ./output/zip/
+else echo "Error: set your recovery location"
 fi
 rm ./output/zip/META-INF/com/google/android/aroma/changelogs.txt
 cp ./changelogs.txt ./output/zip/META-INF/com/google/android/aroma/changelogs.txt
 cd output/zip
 if test -e ./recovery.img
-then zip -r -q --exclude=*zip* $device.$recoveryname.recovery.$vernumber.$revision.$NOW-$author.zip * 
-else echo "recovery.img not found"
+then zip -r -q --exclude=*zip* "$device.$recoveryname.recovery.$vernumber.$revision.$NOW-$author.zip" * 
+else echo "Error: recovery.img not found"
 fi
-clear
-ls -lh $device.$recoveryname.recovery.$vernumber.$revision.$NOW-$author.zip
+
+ls -lh "$device.$recoveryname.recovery.$vernumber.$revision.$NOW-$author.zip"
 

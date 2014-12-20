@@ -5,9 +5,6 @@
 frmdata=$(
 	yad --width=400 \
 	 --title="Presto Aroma recovery packer - marduk191" \
-	 --text="sdfas" \
-	 --text="sdas" \
-	 --text="sdasdas" \
 	 --text="Please enter your details:" \
 	 --image="13.jpg" \
 	 --form --date-format="%-d %B %Y" --item-separator="," \
@@ -18,7 +15,7 @@ frmdata=$(
 	 --field="Author Name:" \
 	 --field="recovery.img location:" \
 	 --button="Build" \
-	 "Presto" "Recovery" "Version" "Revision" "Author" "Recovery location")
+	 "Device name" "Recovery name" "Version" "Revision" "Author" "Recovery location")
 
 device=$(echo $frmdata | awk 'BEGIN {FS="|" } { print $1 }')
 recoveryname=$(echo $frmdata | awk 'BEGIN {FS="|" } { print $2 }')
@@ -30,11 +27,17 @@ recloc=$(echo $frmdata | awk 'BEGIN {FS="|" } { print $6 }')
 
 pico ./output/zip/META-INF/com/google/android/aroma-config
 pico ./changelogs.txt
-cp $recloc ./output/zip
+if test -e $recloc/recovery.img
+then cp $recloc/recovery.img ./output/zip/
+else echo "set your recovery location"
+fi
 rm ./output/zip/META-INF/com/google/android/aroma/changelogs.txt
 cp ./changelogs.txt ./output/zip/META-INF/com/google/android/aroma/changelogs.txt
 cd output/zip
-zip -r -q --exclude=*zip* $device.$recoveryname.recovery.$vernumber.$revision.$NOW-$author.zip * && echo "Success" || echo "Failure"
+if test -e ./recovery.img
+then zip -r -q --exclude=*zip* $device.$recoveryname.recovery.$vernumber.$revision.$NOW-$author.zip * 
+else echo "recovery.img not found"
+fi
 clear
 ls -lh $device.$recoveryname.recovery.$vernumber.$revision.$NOW-$author.zip
 

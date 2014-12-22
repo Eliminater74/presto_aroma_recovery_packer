@@ -43,8 +43,7 @@ pico ./changelogs.txt
      then cp $recloc ./output/zip/
      else echo "Error: set your recovery location"
   fi
-
-rm ./output/zip/META-INF/com/google/android/aroma/changelogs.txt
+  
 cp ./changelogs.txt ./output/zip/META-INF/com/google/android/aroma/changelogs.txt
 cd output/zip
 

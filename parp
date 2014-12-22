@@ -17,6 +17,7 @@ frmdata=$(
 	 --field="include TWRP theme:CHK" \
 	 --button="Build" \
 	 "Device name" "Recovery name" "Version" "Revision" "Author" "Recovery location" "Pick a location" TRUE)
+
 device=$(echo $frmdata | awk 'BEGIN {FS="|" } { print $1 }')
 recoveryname=$(echo $frmdata | awk 'BEGIN {FS="|" } { print $2 }')
 vernumber=$(echo $frmdata | awk 'BEGIN {FS="|" } { print $3 }')
@@ -31,6 +32,10 @@ themeit=$(echo $frmdata | awk 'BEGIN {FS="|" } { print $7 }')
      else echo "Theme is not available"
   fi 
 
+notify-send "Presto Recovery Packer									" \
+            "Modify your aroma-config and Changelogs. Press ctrl+x and follow the instructions to save changes." \
+            -i important
+            
 pico ./output/zip/META-INF/com/google/android/aroma-config
 pico ./changelogs.txt
 
@@ -48,5 +53,11 @@ cd output/zip
      else echo "Error: recovery.img not found"
   fi
 
+clear
 ls -lh "$device.$recoveryname.recovery.$vernumber.$revision.$NOW-$author.zip"
+
+notify-send "Presto Recovery Packer 									" \
+            "Recovery packed!" \
+            -i zip
+
 

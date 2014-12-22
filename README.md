@@ -2,6 +2,11 @@
 THIS IS FOR THE PANTECH PRESTO (BURST/P9070).
 YOUR RECOVERY PARTITIONS WILL BE DIFFERENT.
 
+This is only tested on Linux mint 17, it should work on most systems though.
+Bubble notifications may be broken on some systems. If so, revert the commit below
+````
+https://github.com/marduk191/presto_aroma_recovery_packer/commit/46d80c907a4adce522dabb26a5670ea5fbbd3018
+````
 If you would like to use the yad interface:
 
 ````

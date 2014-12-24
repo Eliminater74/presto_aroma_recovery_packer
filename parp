@@ -2,6 +2,15 @@
 ## Aroma recovery packer
 ## By marduk191
 ## email: marduk191@gmail.com
+chkpkgs=$(dpkg-query -W --showformat='${Status}\n' yad|grep "install ok installed")
+echo "Checking for yad:" $chkpkgs
+
+if [ "" == "$chkpkgs" ]
+ then echo "yad isn't installed. Setting up yad."
+ gksudo apt-get install yad
+ else echo "yad is already installed!"
+fi
+
 oldrec=$(awk '{ print $0}' oldpath)
 frmdata=$(
 	yad --width=400 \

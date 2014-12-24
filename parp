@@ -20,15 +20,15 @@ frmdata=$(
 	 --button="Build" \
 	 "Device name" "Recovery name" "Version" "Revision" "Author" "Recovery location" "$oldrec" "Pick a location" FALSE)
 
-device=$(echo $frmdata | awk 'BEGIN {FS="|" } { print $1 }')
-recoveryname=$(echo $frmdata | awk 'BEGIN {FS="|" } { print $2 }')
-vernumber=$(echo $frmdata | awk 'BEGIN {FS="|" } { print $3 }')
-revision=$(echo $frmdata | awk 'BEGIN {FS="|" } { print $4 }')
+device=$(echo "$frmdata" | awk 'BEGIN {FS="|" } { print $1 }')
+recoveryname=$(echo "$frmdata" | awk 'BEGIN {FS="|" } { print $2 }')
+vernumber=$(echo "$frmdata" | awk 'BEGIN {FS="|" } { print $3 }')
+revision=$(echo "$frmdata" | awk 'BEGIN {FS="|" } { print $4 }')
 NOW=$(date +"%m%d%y")
-author=$(echo $frmdata | awk 'BEGIN {FS="|" } { print $5 }')
-recloc=$(echo $frmdata | awk 'BEGIN {FS="|" } { print $6 }')
-recpartition=$(echo $frmdata | awk 'BEGIN {FS="|" } { print $7 }') 
-themeit=$(echo $frmdata | awk 'BEGIN {FS="|" } { print $8 }')
+author=$(echo "$frmdata" | awk 'BEGIN {FS="|" } { print $5 }')
+recloc=$(echo "$frmdata" | awk 'BEGIN {FS="|" } { print $6 }')
+recpartition=$(echo "$frmdata" | awk 'BEGIN {FS="|" } { print $7 }') 
+themeit=$(echo "$frmdata" | awk 'BEGIN {FS="|" } { print $8 }')
   
 
   if [[ "$themeit" == "TRUE" ]]
@@ -44,8 +44,8 @@ pico ./output/zip/META-INF/com/google/android/aroma-config
 pico ./changelogs.txt
 
 
-  if test -e $recloc
-     then cp $recloc ./output/zip/
+  if test -e "$recloc"
+     then cp "$recloc" ./output/zip/
      else echo "Error: set your recovery location"
   fi
   
@@ -53,7 +53,7 @@ cp ./changelogs.txt ./output/zip/META-INF/com/google/android/aroma/changelogs.tx
 cd output/zip
 
   if test -e ./recovery.img
-     then zip -r -q "$device.$recoveryname.recovery.$vernumber.$revision.$NOW-$author.zip" * 
+     then zip -r -q "$device.$recoveryname.recovery.$vernumber.$revision.$NOW-$author.zip" ./* 
      else echo "Error: recovery.img not found"
   fi
 

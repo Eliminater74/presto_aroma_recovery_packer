@@ -1,6 +1,9 @@
-##DO NOT USE THIS ON ANY OTHER DEVICE.
-THIS IS FOR THE PANTECH PRESTO (BURST/P9070).
-YOUR RECOVERY PARTITIONS WILL BE DIFFERENT.
+#Presto Aroma Recovery Packer
+V2.0
+By marduk191
+
+###THIS IS FOR THE PANTECH PRESTO (BURST/P9070).
+Be sure to change your recovery partition location if on a different device.
 
 This is only tested on Linux mint 17, it should work on most systems though.
 Bubble notifications may be broken on some systems. If so, revert the commit below

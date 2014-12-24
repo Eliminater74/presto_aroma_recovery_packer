@@ -2,6 +2,7 @@
 ## Aroma recovery packer
 ## By marduk191
 ## email: marduk191@gmail.com
+oldrec=$(awk '{ print $0}' oldpath)
 frmdata=$(
 	yad --width=400 \
 	 --title="Presto Aroma recovery packer - marduk191" \
@@ -14,9 +15,10 @@ frmdata=$(
 	 --field="File Revision:" \
 	 --field="Author Name:" \
 	 --field="recovery image location:FL" \
+	 --field="recovery partition name:" \
 	 --field="include TWRP theme:CHK" \
 	 --button="Build" \
-	 "Device name" "Recovery name" "Version" "Revision" "Author" "Recovery location" "Pick a location" TRUE)
+	 "Device name" "Recovery name" "Version" "Revision" "Author" "Recovery location" "$oldrec" "Pick a location" FALSE)
 
 device=$(echo $frmdata | awk 'BEGIN {FS="|" } { print $1 }')
 recoveryname=$(echo $frmdata | awk 'BEGIN {FS="|" } { print $2 }')
@@ -25,8 +27,10 @@ revision=$(echo $frmdata | awk 'BEGIN {FS="|" } { print $4 }')
 NOW=$(date +"%m%d%y")
 author=$(echo $frmdata | awk 'BEGIN {FS="|" } { print $5 }')
 recloc=$(echo $frmdata | awk 'BEGIN {FS="|" } { print $6 }')
-themeit=$(echo $frmdata | awk 'BEGIN {FS="|" } { print $7 }')
+recpartition=$(echo $frmdata | awk 'BEGIN {FS="|" } { print $7 }') 
+themeit=$(echo $frmdata | awk 'BEGIN {FS="|" } { print $8 }')
   
+
   if [[ "$themeit" == "TRUE" ]]
      then cp -r ./output/theme ./output/zip/theme
      else echo "Theme is not available"
@@ -35,9 +39,10 @@ themeit=$(echo $frmdata | awk 'BEGIN {FS="|" } { print $7 }')
 notify-send "Presto Recovery Packer									" \
             "Modify your aroma-config and Changelogs. Press ctrl+x and follow the instructions to save changes." \
             -i important
-            
+sed -i "s|$oldrec|$recpartition|g" ./output/zip/META-INF/com/google/android/updater-script
 pico ./output/zip/META-INF/com/google/android/aroma-config
 pico ./changelogs.txt
+
 
   if test -e $recloc
      then cp $recloc ./output/zip/
@@ -54,7 +59,8 @@ cd output/zip
 
 clear
 ls -lh "$device.$recoveryname.recovery.$vernumber.$revision.$NOW-$author.zip"
-
+cd ../../
+echo "$recpartition" > oldpath
 notify-send "Presto Recovery Packer 									" \
             "Recovery packed!" \
             -i zip

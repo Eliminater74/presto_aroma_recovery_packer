@@ -1,3 +1,5 @@
+#!/bin/bash
+
 rm ./output/zip/*.zip
 rm ./output/zip/recovery.img
 rm -rf ./output/zip/theme/

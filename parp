@@ -2,13 +2,13 @@
 ## Aroma recovery packer
 ## By marduk191
 ## email: marduk191@gmail.com
-chkpkgs=$(dpkg-query -W --showformat='${Status}\n' yad|grep "install ok installed")
-echo "Checking for yad:" $chkpkgs
+chkpkgs=$(dpkg-query -W --showformat="${Status}\n" yad|grep "install ok installed")
+printf "%s\n" "Checking for yad:" "$chkpkgs"
 
 if [ "" == "$chkpkgs" ]
- then echo "yad isn't installed. Setting up yad."
+ then printf "%s\n" "yad isn't installed. Setting up yad."
  gksudo apt-get install yad
- else echo "yad is already installed!"
+ else printf "%s\n" "yad is already installed!"
 fi
 
 oldrec=$(awk '{ print $0}' oldpath)
@@ -29,20 +29,20 @@ frmdata=$(
 	 --button="Build" \
 	 "Device name" "Recovery name" "Version" "Revision" "Author" "Recovery location" "$oldrec" "Pick a location" FALSE)
 
-device=$(echo "$frmdata" | awk 'BEGIN {FS="|" } { print $1 }')
-recoveryname=$(echo "$frmdata" | awk 'BEGIN {FS="|" } { print $2 }')
-vernumber=$(echo "$frmdata" | awk 'BEGIN {FS="|" } { print $3 }')
-revision=$(echo "$frmdata" | awk 'BEGIN {FS="|" } { print $4 }')
+device=$(printf "%s" "$frmdata" | awk 'BEGIN {FS="|" } { print $1 }')
+recoveryname=$(printf "%s" "$frmdata" | awk 'BEGIN {FS="|" } { print $2 }')
+vernumber=$(printf "%s" "$frmdata" | awk 'BEGIN {FS="|" } { print $3 }')
+revision=$(printf "%s" "$frmdata" | awk 'BEGIN {FS="|" } { print $4 }')
 NOW=$(date +"%m%d%y")
-author=$(echo "$frmdata" | awk 'BEGIN {FS="|" } { print $5 }')
-recloc=$(echo "$frmdata" | awk 'BEGIN {FS="|" } { print $6 }')
-recpartition=$(echo "$frmdata" | awk 'BEGIN {FS="|" } { print $7 }') 
-themeit=$(echo "$frmdata" | awk 'BEGIN {FS="|" } { print $8 }')
+author=$(printf "%s" "$frmdata" | awk 'BEGIN {FS="|" } { print $5 }')
+recloc=$(printf "%s" "$frmdata" | awk 'BEGIN {FS="|" } { print $6 }')
+recpartition=$(printf "%s" "$frmdata" | awk 'BEGIN {FS="|" } { print $7 }') 
+themeit=$(printf "%s" "$frmdata" | awk 'BEGIN {FS="|" } { print $8 }')
   
 
   if [[ "$themeit" == "TRUE" ]]
      then cp -r ./output/theme ./output/zip/theme
-     else echo "Theme is not available"
+     else printf "%s\n" "Theme is not available"
   fi 
 
 notify-send "Presto Recovery Packer									" \
@@ -55,7 +55,7 @@ pico ./changelogs.txt
 
   if test -e "$recloc"
      then cp "$recloc" ./output/zip/
-     else echo "Error: set your recovery location"
+     else printf "%s\n" "Error: set your recovery location"
   fi
   
 cp ./changelogs.txt ./output/zip/META-INF/com/google/android/aroma/changelogs.txt
@@ -63,13 +63,13 @@ cd output/zip
 
   if test -e ./recovery.img
      then zip -r -q "$device.$recoveryname.recovery.$vernumber.$revision.$NOW-$author.zip" ./* 
-     else echo "Error: recovery.img not found"
+     else printf "%s\n" "Error: recovery.img not found"
   fi
 
 clear
 ls -lh "$device.$recoveryname.recovery.$vernumber.$revision.$NOW-$author.zip"
 cd ../../
-echo "$recpartition" > oldpath
+printf "%s" "$recpartition" > oldpath
 notify-send "Presto Recovery Packer 									" \
             "Recovery packed!" \
             -i zip

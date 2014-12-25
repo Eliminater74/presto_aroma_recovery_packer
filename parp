@@ -11,7 +11,7 @@ if [ "" == "$chkpkgs" ]
  else printf "%s\n" "yad is already installed!"
 fi
 
-oldrec=$(awk '{ print $0}' oldpath)
+oldrec="$(<oldpath)"
 frmdata=$(
 	yad --width=400 \
 	 --title="Presto Aroma recovery packer - marduk191" \

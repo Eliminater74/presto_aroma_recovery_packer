@@ -10,12 +10,12 @@ then printf "%s\n" "yad isn't installed. Setting up yad."
 else printf "%s\n" "yad is already installed!"
 fi
 
-oldrec="$(<oldpath)"
+oldrec="$(<./bin/oldpath)"
 frmdata=$(
 	yad --width=400 \
 	 --title="Presto Aroma recovery packer - marduk191" \
 	 --text="Please enter your details:" \
-	 --image="13.jpg" \
+	 --image="./bin/13.jpg" \
 	 --form --date-format="%-d %B %Y" --item-separator="," \
 	 --field="Device Name:" \
 	 --field="Recovery Name:" \
@@ -40,7 +40,7 @@ themeit=$(printf "%s" "$frmdata" | awk 'BEGIN {FS="|" } { print $8 }')
   
 
   if [[ "$themeit" == "TRUE" ]]
-     then cp -r ./output/theme ./output/zip/theme
+     then cp -r ./bin/theme ./output/zip/theme
      else printf "%s\n" "Theme is not available"
   fi 
 
@@ -49,7 +49,7 @@ notify-send "Presto Recovery Packer									" \
             -i important
 sed -i "s|$oldrec|$recpartition|g" ./output/zip/META-INF/com/google/android/updater-script
 pico ./output/zip/META-INF/com/google/android/aroma-config
-pico ./changelogs.txt
+pico ./bin/changelogs.txt
 
 
   if test -e "$recloc"
@@ -57,7 +57,7 @@ pico ./changelogs.txt
      else printf "%s\n" "Error: set your recovery location"
   fi
   
-cp ./changelogs.txt ./output/zip/META-INF/com/google/android/aroma/changelogs.txt
+cp ./bin/changelogs.txt ./output/zip/META-INF/com/google/android/aroma/changelogs.txt
 cd output/zip
 
   if test -e ./recovery.img
@@ -68,7 +68,7 @@ cd output/zip
 clear
 ls -lh "$device.$recoveryname.recovery.$vernumber.$revision.$NOW-$author.zip"
 cd ../../
-printf "%s" "$recpartition" > oldpath
+printf "%s" "$recpartition" > ./bin/oldpath
 notify-send "Presto Recovery Packer 									" \
             "Recovery packed!" \
             -i zip

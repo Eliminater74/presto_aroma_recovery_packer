@@ -2,7 +2,7 @@
 ## Aroma recovery packer
 ## By marduk191
 ## email: marduk191@gmail.com
-chkpkgs=$(dpkg-query -W --showformat="${Status}\n" yad|grep "install ok installed")
+chkpkgs=$(dpkg-query -W yad)
 printf "%s\n" "Checking for yad:" "$chkpkgs"
 
 if [ "" == "$chkpkgs" ]

@@ -1,19 +1,33 @@
 #updater-script
-#By marduk191
 
 set_progress(0.01);
 
 ifelse(is_mounted("/system") == "/system", unmount("/system"));
 ifelse(is_mounted("/cache") == "/cache", unmount("/cache"));
 
-ui_print("  ");
-ui_print("Recovery installer");
-ui_print("By: marduk191");
-ui_print("  ");
 set_progress(0.01);
 
-################Recovery partition
-package_extract_file("recovery.img", "/dev/block/platform/msm_sdcc.1/by-num/p18");
+ui_print("");
+ui_print("************************************");
+ui_print("*     TWRP 2.8.6.x Modified For    *");
+ui_print("*           MultiRom v32           *");
+ui_print("*          by Tassadar             *");
+ui_print("*             (C) 2015             *");
+ui_print("*    Compiled By: Eliminater74     *");
+ui_print("*         On April 12th, 2015      *");
+ui_print("************************************");
+ui_print("*         Compiled With            *");
+ui_print("*    SaberMod 4.9 ToolChains       *");
+ui_print("*                                  *");
+ui_print("************************************");
+ui_print("");
+ui_print("************************************");
+
+ui_print("* Checking Device Compatibility....*");
+assert(getprop("ro.product.device") == "g3" || getprop("ro.build.product") == "g3" || getprop("ro.product.device") == "d851" || getprop("ro.build.product") == "d851" || abort("This package is for device: g3,d851; this device is " + getprop("ro.product.device") + "."););
+ui_print("* Looks Good, Lets Flash Recovery. *");
+
+package_extract_file("recovery.img", "/dev/block/platform/msm_sdcc.1/by-name/recovery");
 package_extract_dir("theme", "/sdcard/TWRP/theme");
 set_progress(0.5);
 
@@ -24,4 +38,16 @@ delete_recursive("/cache/");
 run_program("/sbin/busybox", "umount", "/cache");
 set_progress(1.0);
 
-ui_print("Recovery flashed, enjoy!");
+ui_print("************************************");
+ui_print("*                                  *");
+ui_print("*  Screen Blink Should Now Work    *");
+ui_print("************************************");
+ui_print("*                                  *");
+ui_print("************************************");
+ui_print("*         TWRP 2.8.6.X Mod         *");
+ui_print("*      Compiled for MultiRom        ");
+ui_print("*      Installation Completed!     *");
+ui_print("************************************");
+ui_print("");
+
+
